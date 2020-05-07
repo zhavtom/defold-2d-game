@@ -1,1 +1,5 @@
 .DS_Store
+src/.internal
+src/assets
+src/build
+src/input
