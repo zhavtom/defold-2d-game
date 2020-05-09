@@ -25,6 +25,7 @@ input_method = HiddenInputField
 
 [physics]
 scale = 0.01
+debug = 1
 
 [display]
 width = 1152

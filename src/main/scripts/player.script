@@ -1,10 +1,51 @@
 function init(self)
 	msg.post(".", "acquire_input_focus")
-	self.align = -1
-	self.xmove = vmath.vector3(1, 0, 0)
-	self.ymove = vmath.vector3(0, 1, 0)
-	self.coll = vmath.vector3(0, 0, 0)
+	self.pos = vmath.vector3()
+	self.speed = 1
+	self.align = 0
+	self.input = vmath.vector3()
+	self.coll = vmath.vector3()
+	self.xmv = vmath.vector3(self.speed, 0, 0)
+	self.ymv = vmath.vector3(0, self.speed, 0)
 	self.wk = 0
+	self.cinit = false
+end
+
+local function move(self)
+	if self.coll.x >= 0 then
+		if self.input.x > 0 then
+			go.set_position(self.pos + self.xmv)
+			self.input.x = 0
+			self.coll.x = 0
+			self.coll.y = 0
+		end
+	end
+	if self.coll.x <= 0 then
+		if self.input.x < 0 then
+			go.set_position(self.pos - self.xmv)
+			self.input.x = 0
+		end
+		self.coll.x = 0
+	end
+	if self.input.y > 0 then
+		if self.coll.y >= 0 then
+			go.set_position(self.pos + self.ymv)
+			self.coll.y = 0
+		end
+		self.input.y = 0
+	end
+	if self.input.y < 0 then
+		if self.coll.y <= 0 then
+			go.set_position(self.pos - self.ymv)
+			self.coll.y = 0
+		end
+		self.input.y = 0
+	end
+end
+	
+function update(self)
+	self.pos = go.get_position()
+	move(self)
 end
 
 function on_message(self, message_id, message, sender)
@@ -15,16 +56,16 @@ function on_message(self, message_id, message, sender)
 	end
 	if message_id == hash("inputs") then
 		if message.id == "fwd" then
-			self.align = 0
+			self.input.y = 1
 		end
 		if message.id == "right" then
-			self.align = 1
+			self.input.x = 1
 		end
 		if message.id == "back" then
-			self.align = 2
+			self.input.y = -1
 		end
 		if message.id == "left" then
-			self.align = 3
+			self.input.x = -1
 		end
 	end
 end
