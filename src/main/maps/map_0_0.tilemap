@@ -1,4 +1,4 @@
-tile_set: "/main/maps/terrain.tilesource"
+tile_set: "/main/tiles/terrain.tilesource"
 layers {
   id: "ground"
   z: 0.0
@@ -123,13 +123,6 @@ layers {
     v_flip: 0
   }
   cell {
-    x: -2
-    y: -1
-    tile: 4
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
     x: -1
     y: -1
     tile: 0
@@ -382,13 +375,6 @@ layers {
     v_flip: 0
   }
   cell {
-    x: 17
-    y: 1
-    tile: 4
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
     x: -1
     y: 1
     tile: 0
@@ -511,13 +497,6 @@ layers {
     x: 16
     y: 2
     tile: 0
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
-    x: 17
-    y: 2
-    tile: 4
     h_flip: 0
     v_flip: 0
   }
@@ -648,13 +627,6 @@ layers {
     v_flip: 0
   }
   cell {
-    x: 17
-    y: 3
-    tile: 4
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
     x: -1
     y: 3
     tile: 0
@@ -781,13 +753,6 @@ layers {
     v_flip: 0
   }
   cell {
-    x: 17
-    y: 4
-    tile: 4
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
     x: -1
     y: 4
     tile: 0
@@ -914,13 +879,6 @@ layers {
     v_flip: 0
   }
   cell {
-    x: 17
-    y: 5
-    tile: 4
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
     x: -1
     y: 5
     tile: 0
@@ -1047,13 +1005,6 @@ layers {
     v_flip: 0
   }
   cell {
-    x: 17
-    y: 6
-    tile: 4
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
     x: -1
     y: 6
     tile: 0
@@ -1180,20 +1131,6 @@ layers {
     v_flip: 0
   }
   cell {
-    x: 17
-    y: 7
-    tile: 4
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
-    x: -2
-    y: 7
-    tile: 4
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
     x: -1
     y: 7
     tile: 0
@@ -1316,13 +1253,6 @@ layers {
     x: 16
     y: 8
     tile: 0
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
-    x: -2
-    y: 8
-    tile: 4
     h_flip: 0
     v_flip: 0
   }
@@ -1777,21 +1707,21 @@ layers {
   cell {
     x: 9
     y: 12
-    tile: 2
+    tile: 5
     h_flip: 0
     v_flip: 0
   }
   cell {
     x: 10
     y: 12
-    tile: 2
+    tile: 1
     h_flip: 0
     v_flip: 0
   }
   cell {
     x: 11
     y: 12
-    tile: 2
+    tile: 5
     h_flip: 0
     v_flip: 0
   }
@@ -1903,21 +1833,21 @@ layers {
   cell {
     x: 9
     y: 13
-    tile: 2
+    tile: 5
     h_flip: 0
     v_flip: 0
   }
   cell {
     x: 10
     y: 13
-    tile: 2
+    tile: 5
     h_flip: 0
     v_flip: 0
   }
   cell {
     x: 11
     y: 13
-    tile: 2
+    tile: 5
     h_flip: 0
     v_flip: 0
   }
@@ -2338,20 +2268,6 @@ layers {
     x: -1
     y: 16
     tile: 0
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
-    x: 16
-    y: 17
-    tile: 4
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
-    x: 17
-    y: 17
-    tile: 4
     h_flip: 0
     v_flip: 0
   }

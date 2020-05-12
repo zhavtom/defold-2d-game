@@ -103,7 +103,7 @@ max_particle_count = 1024
 
 [physics]
 contact_impulse_limit = 0.0
-debug = 0
+debug = 1
 debug_alpha = 0.9
 debug_scale = 30.0
 gravity_x = 0.0
@@ -113,7 +113,7 @@ max_collisions = 64
 max_contacts = 128
 ray_cast_limit_2d = 64
 ray_cast_limit_3d = 128
-scale = 0.01
+scale = 1.0
 trigger_overlap_capacity = 16
 type = 2D
 world_count = 4
