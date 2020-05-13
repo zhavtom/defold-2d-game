@@ -26,13 +26,13 @@ max_count = 128
 display_profiles = /builtins/render/default.display_profilesc
 dynamic_orientation = 0
 fullscreen = 0
-height = 540
+height = 640
 high_dpi = 0
 samples = 0
 update_frequency = 0
 variable_dt = 0
 vsync = 1
-width = 540
+width = 640
 
 [engine]
 run_while_iconified = 0

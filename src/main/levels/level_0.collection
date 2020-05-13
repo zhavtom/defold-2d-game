@@ -3,8 +3,8 @@ instances {
   id: "warpgate"
   prototype: "/main/objects/funcs/warpgate.go"
   position {
-    x: 40.0
-    y: -14.0
+    x: 168.0
+    y: 206.0
     z: 0.0
   }
   rotation {
@@ -16,8 +16,13 @@ instances {
   component_properties {
     id: "warpgate"
     properties {
+      id: "dest"
+      value: "1.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
+    properties {
       id: "dest_pos"
-      value: "160.0, 176.0, 0.0"
+      value: "32.0, 0.0, 0.0"
       type: PROPERTY_TYPE_VECTOR3
     }
   }
@@ -32,8 +37,8 @@ embedded_instances {
   id: "map"
   children: "warpgate"
   data: "components {\n"
-  "  id: \"map_001\"\n"
-  "  component: \"/main/maps/map_001.tilemap\"\n"
+  "  id: \"map_0\"\n"
+  "  component: \"/main/maps/map_0.tilemap\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
@@ -49,7 +54,7 @@ embedded_instances {
   "embedded_components {\n"
   "  id: \"collisionobject\"\n"
   "  type: \"collisionobject\"\n"
-  "  data: \"collision_shape: \\\"/main/maps/map_001.tilemap\\\"\\n"
+  "  data: \"collision_shape: \\\"/main/maps/map_0.tilemap\\\"\\n"
   "type: COLLISION_OBJECT_TYPE_KINEMATIC\\n"
   "mass: 0.0\\n"
   "friction: 0.1\\n"

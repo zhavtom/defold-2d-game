@@ -27,8 +27,8 @@ input_method = HiddenInputField
 debug = 0
 
 [display]
-width = 540
-height = 540
+width = 640
+height = 640
 
 [graphics]
 default_texture_min_filter = nearest
