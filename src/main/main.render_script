@@ -91,14 +91,14 @@ function update(self)
         self.org_vw = render.get_width()
         self.org_sh = render.get_window_height()
         self.org_sw = render.get_window_width()
-        msg.post("main:/system#game", "viewsize", { vh = self.org_vh , vw = self.org_vw })
-        msg.post("main:/system#game", "screensize", { sh = self.org_sh , sw = self.org_sw })
+        msg.post("main:/world#game", "viewsize", { vh = self.org_vh , vw = self.org_vw })
+        msg.post("main:/world#game", "screensize", { sh = self.org_sh , sw = self.org_sw })
         self.viewsize_sent = true
     end
     if self.org_sh ~= render.get_window_height() or self.org_sw ~= render.get_window_width() then
         self.org_sh = render.get_window_height()
         self.org_sw = render.get_window_width()
-        msg.post("main:/system#game", "screensize", { sh = self.org_sh , sw = self.org_sw })
+        msg.post("main:/world#game", "screensize", { sh = self.org_sh , sw = self.org_sw })
     end
 end
 

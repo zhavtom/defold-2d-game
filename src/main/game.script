@@ -1,13 +1,10 @@
 function init(self)
-	self.view_distance = 12
+	self.view_distance = 20
 	self.scale = 4
 	msg.post(".", "acquire_input_focus")
 	msg.post("@render:", "use_fixed_projection", { zoom = self.scale })
 	self.sized = false
-	self.player_pos = go.get_position("player")
-	factory.load("level#level_0_0", function(self, url, result) 
-		factory.create("level#level_0_0")
-	end)
+	msg.post("level#loader", "load_level", { idx = "000", dpos = vmath.vector3(0, 0, 0)})
 end
 
 function zround(n)
@@ -15,7 +12,6 @@ function zround(n)
 end
 
 function update(self)
-	go.set_position(vmath.vector3(8, 8, 0))
 end
 
 function on_message(self, message_id, message)
@@ -26,5 +22,6 @@ function on_message(self, message_id, message)
 	elseif message_id == hash("screensize") then
 		self.scale = zround(math.max(message.sh, message.sw) / (16 * self.view_distance))
 		msg.post("@render:", "use_fixed_projection", { zoom = self.scale })
+		go.set_position(vmath.vector3(-message.sh/2, -message.sw/2, 0), "cam")
 	end
 end

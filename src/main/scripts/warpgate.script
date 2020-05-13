@@ -1,0 +1,39 @@
+go.property("dest", vmath.vector3(0, 0, 0))
+go.property("dest_pos", vmath.vector3(0, 0, 0))
+
+function init(self)
+	self.loader_url = "main:level#loader"
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("notify_loader") then
+		self.loader_url = sender
+	end
+	if message_id == hash("contact_point_response") then
+		local player = message.other_id
+		local dest = go.get("#warpgate", "dest")
+		local index = "" .. dest.x .. dest.y .. dest.z
+		local dpos = go.get("#warpgate", "dest_pos")
+		msg.post("/player", "rq_load_level", {idx = index, pos = dpos})
+	end
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Remove this function if not needed
+end

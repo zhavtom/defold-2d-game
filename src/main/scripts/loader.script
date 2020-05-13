@@ -1,0 +1,31 @@
+function init(self)
+	self.go_ids = nil
+	self.temp_idx = nil
+	msg.post("main:/world", "notify_loader")
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Remove this function if not needed
+end
+
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("load_level") then
+		msg.post(sender, "hold", {state = true})
+		if self.go_ids then
+			go.delete(self.go_ids)
+			collectionfactory.unload("#level_" .. self.temp_idx)
+		end
+		collectionfactory.load("#level_" .. message.idx, function(self, url, result)
+			local new_ids = collectionfactory.create("#level_" .. message.idx)
+			if message.pid then
+				go.set_position(message.pos, message.pid)
+			end
+			self.go_ids = new_ids
+			self.temp_idx = message.idx
+			msg.post(sender, "hold", {state = false})
+			msg.post("main:/world", "notify_loader")
+		end)
+	end
+end

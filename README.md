@@ -1,3 +1,3 @@
-# defold-2d-game
- 
-## not working
+# Defold 2D Game
+
+見下ろし型のピクセル調2Dゲームです

@@ -26,13 +26,13 @@ max_count = 128
 display_profiles = /builtins/render/default.display_profilesc
 dynamic_orientation = 0
 fullscreen = 0
-height = 1152
+height = 540
 high_dpi = 0
 samples = 0
 update_frequency = 0
 variable_dt = 0
 vsync = 1
-width = 1152
+width = 540
 
 [engine]
 run_while_iconified = 0
@@ -103,7 +103,7 @@ max_particle_count = 1024
 
 [physics]
 contact_impulse_limit = 0.0
-debug = 1
+debug = 0
 debug_alpha = 0.9
 debug_scale = 30.0
 gravity_x = 0.0
