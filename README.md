@@ -4,4 +4,4 @@
 
 
 
-https://zhavtom.github.io/defold-2d-game/ で遊べます(予定)
+https://zhavtom.github.io/defold-2d-game/ で遊べます
