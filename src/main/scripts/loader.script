@@ -24,7 +24,6 @@ function on_message(self, message_id, message, sender)
 			self.go_ids = new_ids
 			self.temp_idx = message.idx
 			msg.post(sender, "hold", {state = false})
-			msg.post("main:/world", "notify_loader")
 		end)
 	end
 end
