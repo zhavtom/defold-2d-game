@@ -1,7 +1,6 @@
 function init(self)
 	self.go_ids = nil
 	self.temp_idx = nil
-	msg.post("main:/world", "notify_loader")
 end
 
 function update(self, dt)

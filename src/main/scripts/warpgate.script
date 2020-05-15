@@ -16,9 +16,6 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("notify_loader") then
-		self.loader_url = sender
-	end
 	if message_id == hash("contact_point_response") then
 		local player = message.other_id
 		local index = go.get("#warpgate", "dest")
