@@ -117,8 +117,8 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("hold") then
 		self.hold = message.state
 	end
-	if message_id == hash("rq_load_level") then
-		msg.post("level#loader", "load_level", { idx = message.idx, pos = message.pos, pid = go.get_id()})
+	if message_id == hash("rq_main") then
+		msg.post(message.dest, message.msgid, message.table)
 	end
 end
 

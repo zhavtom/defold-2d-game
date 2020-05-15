@@ -23,7 +23,9 @@ function on_message(self, message_id, message, sender)
 		local player = message.other_id
 		local index = go.get("#warpgate", "dest")
 		local dpos = go.get("#warpgate", "dest_pos")
-		msg.post("/player", "rq_load_level", {idx = index, pos = dpos})
+		local player = go.get_id("/player")
+		local msg_table = {idx = index, pos = dpos, pid = player}
+		msg.post("/player", "rq_main", {dest = "level#loader", msgid = "load_level", table = msg_table})
 	end
 end
 
