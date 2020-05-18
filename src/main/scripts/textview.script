@@ -1,0 +1,52 @@
+function init(self)
+	self.text = ""
+	self.count = 0
+	self.writing = false
+	self.sender = nil
+	msg.post("#sprite", "disable")
+	msg.post(".", "acquire_input_focus")
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("text_write") then
+		self.text = message.text
+		self.sender = sender
+		msg.post("#sprite", "enable")
+		msg.post(sender, "hold", {state = true})
+		timer.delay(0.02, true, function(self, handle, time_elapsed)
+			self.writing = true
+			if string.len(self.text) >= self.count then
+				label.set_text("#label", self.text:sub(0,self.count))
+				self.count = self.count + 1
+			else
+				timer.cancel(handle)
+				self.writing = false
+			end
+		end)
+	end
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("btn_1") then
+		if self.writing then
+			self.count = string.len(self.text)
+		else
+			label.set_text("#label", "")
+			msg.post("#sprite", "disable")
+			msg.post(self.sender, "hold", {state = false})
+		end
+	end
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Remove this function if not needed
+end

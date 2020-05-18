@@ -1,20 +1,20 @@
 key_trigger {
-  input: KEY_W
+  input: KEY_UP
   action: "fwd"
 }
 key_trigger {
-  input: KEY_A
+  input: KEY_LEFT
   action: "left"
 }
 key_trigger {
-  input: KEY_S
+  input: KEY_DOWN
   action: "back"
 }
 key_trigger {
-  input: KEY_D
+  input: KEY_RIGHT
   action: "right"
 }
-mouse_trigger {
-  input: MOUSE_BUTTON_1
-  action: "touch"
+key_trigger {
+  input: KEY_Z
+  action: "btn_1"
 }

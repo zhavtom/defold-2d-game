@@ -1,7 +1,8 @@
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	msg.post("cam#camera", "acquire_camera_focus")
-	self.align = -1
+	self.vel = vmath.vector3()
+	self.align = 0
 	self.speed = 1
 	self.xmove = vmath.vector3(self.speed, 0, 0)
 	self.ymove = vmath.vector3(0, self.speed, 0)
@@ -10,10 +11,26 @@ function init(self)
 	self.wk = 0
 	self.stpd = true
 	self.hold = false
+
+	timer.delay(1, false, function(self, handle, time_elapsed)
+		msg.post("textbox", "text_write", {text = "しかし　いなかった！\nWelcome to Defold."})
+	end)
 end
 
 local function animate(self, walk)
 	if walk then
+		if self.vel.y == 1 then
+			self.align = 0
+		end
+		if self.vel.x == 1 then
+			self.align = 1
+		end
+		if self.vel.y == -1 then
+			self.align = 2
+		end
+		if self.vel.x == -1 then
+			self.align = 3
+		end
 		if self.foot then
 			sprite.play_flipbook("#sprite", hash("walk_L" .. self.align))
 			self.foot = false
@@ -27,11 +44,11 @@ local function animate(self, walk)
 end
 
 local function move(self)
-	local keyed = self.align >= 0
+	local keyed = vmath.length(self.vel) > 0
 	local lim = 16 / self.speed
 	if self.wk < lim and keyed then
 		self.coll = vmath.vector3(self.coll_x, self.coll_y, 0)
-		if self.align == 0 then
+		if self.vel.y == 1 then
 			if self.coll_y >= -0.5 then
 				if self.stpd then
 					animate(self, true)
@@ -43,7 +60,7 @@ local function move(self)
 			else
 				animate(self, false)
 			end
-		elseif self.align == 1 then
+		elseif self.vel.x == 1 then
 			if self.coll_x >= -0.5 then
 				if self.stpd then
 					animate(self, true)
@@ -55,7 +72,7 @@ local function move(self)
 			else
 				animate(self, false)
 			end
-		elseif self.align == 2 then
+		elseif self.vel.y == -1 then
 			if self.coll_y <= 0.5 then
 				if self.stpd then
 					animate(self, true)
@@ -67,7 +84,7 @@ local function move(self)
 			else
 				animate(self, false)
 			end
-		elseif self.align == 3 then
+		elseif self.vel.x == -1 then
 			if self.coll_x <= 0.5 then
 				if self.stpd then
 					animate(self, true)
@@ -81,19 +98,19 @@ local function move(self)
 			end
 		end
 	else
-		if self.align ~= -1 then
+		if vmath.length(self.vel) > 0 then
 			animate(self, false)
-			if self.align == 0 then
+			if self.vel.y == 1 then
 				self.wk = self.wk + 1
-			elseif self.align == 1 then
+			elseif self.vel.x == 1 then
 				self.wk = self.wk + 1
-			elseif self.align == 2 then
+			elseif self.vel.y == -1 then
 				self.wk = self.wk + 1
-			elseif self.align == 3 then
+			elseif self.vel.x == -1 then
 				self.wk = self.wk + 1
 			end
 		end
-		self.align = -1
+		self.vel = vmath.vector3()
 		self.wk = 0
 	end
 end
@@ -123,20 +140,22 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
-	if action_id == hash("touch") then
+	if action_id == hash("fwd") or action_id == hash("right") or action_id == hash("back") or action_id == hash("left") then
+		if not self.hold then
+			if action_id == hash("fwd") and self.stpd then
+				self.vel = self.ymove
+			end
+			if action_id == hash("right") and self.stpd then
+				self.vel = self.xmove
+			end
+			if action_id == hash("back") and self.stpd then
+				self.vel = -self.ymove
+			end
+			if action_id == hash("left") and self.stpd then
+				self.vel = -self.xmove
+			end
+		end
 	end
-	if action_id == hash("fwd") or action_id == hash("right") or action_id == hash("back") or action_id == hash("left") and not self.hold then
-		if action_id == hash("fwd") and self.stpd then
-			self.align = 0
-		end
-		if action_id == hash("right") and self.stpd then
-			self.align = 1
-		end
-		if action_id == hash("back") and self.stpd then
-			self.align = 2
-		end
-		if action_id == hash("left") and self.stpd then
-			self.align = 3
-		end
+	if action_id == hash("btn_1") then
 	end
 end
