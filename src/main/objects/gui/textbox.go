@@ -18,7 +18,7 @@ embedded_components {
   type: "label"
   data: "size {\n"
   "  x: 240.0\n"
-  "  y: 60.0\n"
+  "  y: 80.0\n"
   "  z: 0.0\n"
   "  w: 0.0\n"
   "}\n"
@@ -77,7 +77,7 @@ embedded_components {
   ""
   position {
     x: 0.0
-    y: -50.5
+    y: -49.5
     z: 0.0
   }
   rotation {

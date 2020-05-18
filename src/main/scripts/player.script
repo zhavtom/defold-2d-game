@@ -12,7 +12,7 @@ function init(self)
 	self.stpd = true
 	self.hold = false
 
-	timer.delay(1, false, function(self, handle, time_elapsed)
+	timer.delay(5, false, function(self, handle, time_elapsed)
 		msg.post("textbox", "text_write", {text = "しかし　いなかった！\nWelcome to Defold."})
 	end)
 end
