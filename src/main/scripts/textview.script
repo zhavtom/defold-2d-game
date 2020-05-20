@@ -20,7 +20,7 @@ function on_message(self, message_id, message, sender)
 		self.text = message.text
 		self.sender = sender
 		msg.post("#sprite", "enable")
-		msg.post(sender, "hold", {state = true})
+		msg.post(sender, "stop", {state = true})
 		timer.delay(0.02, true, function(self, handle, time_elapsed)
 			self.writing = true
 			if string.len(self.text) >= self.count then
@@ -41,7 +41,7 @@ function on_input(self, action_id, action)
 		else
 			label.set_text("#label", "")
 			msg.post("#sprite", "disable")
-			msg.post(self.sender, "hold", {state = false})
+			msg.post(self.sender, "stop", {state = false})
 			self.count = 0
 		end
 	end

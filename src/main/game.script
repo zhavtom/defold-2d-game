@@ -1,6 +1,12 @@
 function init(self)
 	self.view_distance = 10
 	self.scale = 4
+	self.blocksize = 16
+	self.walk = 0
+	self.vel = vmath.vector3()
+	self.pid = nil
+	self.stop = true
+	self.hold = false
 	msg.post(".", "acquire_input_focus")
 	msg.post("@render:", "use_fixed_projection", { zoom = self.scale })
 	self.sized = false
@@ -11,10 +17,23 @@ function zround(n)
 	return n % 1 >= 0.5 and math.ceil(n) or math.floor(n)
 end
 
-function update(self)
+function move(self)
+	go.set_position(go.get_position(self.pid)+self.vel, self.pid)
 end
 
-function on_message(self, message_id, message)
+function update(self)
+	if self.walk > 0 then
+		self.walk = self.walk - 1
+		move(self)
+	else
+		if self.hold then
+			msg.post("player", "hold", {state = false})
+			self.hold = false
+		end
+	end
+end
+
+function on_message(self, message_id, message, sender)
 	if message_id == hash("viewsize") then
 		self.vh = message.vh
 		self.vw = message.vw
@@ -24,5 +43,17 @@ function on_message(self, message_id, message)
 		msg.post("@render:", "use_fixed_projection", { zoom = self.scale })
 		local guide = 64 * self.view_distance
 		go.set_position(vmath.vector3(-guide/2, -guide/2, 0), "cam")
+	end
+	if message_id == hash("hold") then
+		self.hold = message.state
+	end
+	if message_id == hash("rq_move") then
+		if not self.hold then
+			self.walk = self.blocksize
+			self.vel = message.vel
+			self.pid = sender
+			self.hold = true
+			local wk = self.walk ~= 0
+		end
 	end
 end

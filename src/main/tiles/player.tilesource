@@ -46,7 +46,7 @@ animations {
   id: "walk_L0"
   start_tile: 9
   end_tile: 10
-  playback: PLAYBACK_LOOP_BACKWARD
+  playback: PLAYBACK_ONCE_BACKWARD
   fps: 7
   flip_horizontal: 0
   flip_vertical: 0
@@ -55,7 +55,7 @@ animations {
   id: "walk_L1"
   start_tile: 5
   end_tile: 6
-  playback: PLAYBACK_LOOP_BACKWARD
+  playback: PLAYBACK_ONCE_BACKWARD
   fps: 7
   flip_horizontal: 0
   flip_vertical: 0
@@ -64,7 +64,7 @@ animations {
   id: "walk_L2"
   start_tile: 1
   end_tile: 2
-  playback: PLAYBACK_LOOP_BACKWARD
+  playback: PLAYBACK_ONCE_BACKWARD
   fps: 7
   flip_horizontal: 0
   flip_vertical: 0
@@ -73,7 +73,7 @@ animations {
   id: "walk_L3"
   start_tile: 13
   end_tile: 14
-  playback: PLAYBACK_LOOP_BACKWARD
+  playback: PLAYBACK_ONCE_BACKWARD
   fps: 7
   flip_horizontal: 0
   flip_vertical: 0
@@ -82,7 +82,7 @@ animations {
   id: "walk_R0"
   start_tile: 11
   end_tile: 12
-  playback: PLAYBACK_LOOP_BACKWARD
+  playback: PLAYBACK_ONCE_BACKWARD
   fps: 7
   flip_horizontal: 0
   flip_vertical: 0
@@ -91,7 +91,7 @@ animations {
   id: "walk_R1"
   start_tile: 7
   end_tile: 8
-  playback: PLAYBACK_LOOP_BACKWARD
+  playback: PLAYBACK_ONCE_BACKWARD
   fps: 7
   flip_horizontal: 0
   flip_vertical: 0
@@ -100,7 +100,7 @@ animations {
   id: "walk_R2"
   start_tile: 3
   end_tile: 4
-  playback: PLAYBACK_LOOP_BACKWARD
+  playback: PLAYBACK_ONCE_BACKWARD
   fps: 7
   flip_horizontal: 0
   flip_vertical: 0
@@ -109,10 +109,11 @@ animations {
   id: "walk_R3"
   start_tile: 15
   end_tile: 16
-  playback: PLAYBACK_LOOP_BACKWARD
+  playback: PLAYBACK_ONCE_BACKWARD
   fps: 7
   flip_horizontal: 0
   flip_vertical: 0
 }
 extrude_borders: 2
 inner_padding: 0
+sprite_trim_mode: SPRITE_TRIM_MODE_OFF

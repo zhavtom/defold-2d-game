@@ -70,7 +70,7 @@ embedded_components {
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "tile_set: \"/main/atlas/objects.atlas\"\n"
+  data: "tile_set: \"/main/atlas/gui_objects.atlas\"\n"
   "default_animation: \"bg_textview\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
