@@ -6,20 +6,20 @@ function init(self)
 	self.speed = 1
 	self.xmove = vmath.vector3(self.speed, 0, 0)
 	self.ymove = vmath.vector3(0, self.speed, 0)
-	self.coll_x = 0
-	self.coll_y = 0
+	self.coll = vmath.vector4()
 	self.wk = 0
 	self.walk = false
 	self.stpd = true
 	self.hold = false
 	self.foot = true
+	self.id = go.get_id()
 	timer.delay(5, false, function(self, handle, time_elapsed)
 		msg.post("textbox", "text_write", {text = "しかし　いなかった！\nWelcome to Defold."})
 	end)
 end
 
-function animate(self, idx)
-	if self.hold then
+function animate(self, walk)
+	if walk then
 		if self.foot then
 			sprite.play_flipbook("#sprite", hash("walk_L" .. self.align))
 			self.foot = false
@@ -31,7 +31,7 @@ function animate(self, idx)
 		sprite.play_flipbook("#sprite", hash("idle_" .. self.align))
 	end
 end
-
+--[[
 local function move(self)
 	local keyed = vmath.length(self.vel) > 0
 	local lim = 16 / self.speed
@@ -101,33 +101,30 @@ local function move(self)
 		self.wk = 0
 	end
 end
-
+]]
 function update(self, dt)
-	self.pos = go.get_position()
-	move(self)
+	if self.pos ~= go.get_position() then
+		self.pos = go.get_position()
+	end
 	self.stpd = self.wk == 0
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("contact_point_response") then
 		if message.group == hash("blocker") then
-			if message.normal.x ~= 0 and self.stpd then
-				self.coll_x = message.normal.x
-			elseif message.normal.y ~= 0 and self.stpd then
-				self.coll_y = message.normal.y
+			if message.normal.y > 0.7 then
+				self.coll.x = 1
+			end
+			if message.normal.x > 0.7 then
+				self.coll.y = 1
+			end
+			if message.normal.y < -0.7 then
+				self.coll.z = 1
+			end
+			if message.normal.y < -0.7 then
+				self.coll.w = 1
 			end
 		end
-	end
-	if message_id == hash("hold") then
-		self.hold = message.state
-		msg.post("/world", "hold", {state = message.state})
-		if not message.state then
-			self.coll_x = 0
-			self.coll_y = 0
-		end
-	end
-	if message_id == hash("stop") then
-		self.stop = message.state
 	end
 	if message_id == hash("rq_main") then
 		msg.post(message.dest, message.msgid, message.table)
@@ -135,39 +132,27 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("anim") then
 		animate(self, message.walk, message.vel)
 	end
+	if message_id == hash("set_coll") then
+		self.coll = message.vec
+	end
 end
 
 function on_input(self, action_id, action)
 	if action_id == hash("fwd") or action_id == hash("right") or action_id == hash("back") or action_id == hash("left") then
-		if action_id == hash("fwd") and self.coll_y >= -0.5 then
-			if not self.hold and not self.stop then
-				msg.post("/world", "rq_move", {vel = self.ymove})
-				self.hold = true
-				self.align = 0
-				animate(self)
-			end
-		elseif action_id == hash("right") and self.coll_x >= -0.5 then
-			if not self.hold and not self.stop then
-				msg.post("/world", "rq_move", {vel = self.xmove})
-				self.hold = true
-				self.align = 1
-				animate(self)
-			end
-		elseif action_id == hash("back") and self.coll_y <= 0.5 then
-			if not self.hold and not self.stop then
-				msg.post("/world", "rq_move", {vel = -self.ymove})
-				self.hold = true
-				self.align = 2
-				animate(self)
-			end
-		elseif action_id == hash("left") and self.coll_x <= 0.5 then
-			if not self.hold and not self.stop then
-				msg.post("/world", "rq_move", {vel = -self.xmove})
-				self.hold = true
-				self.align = 3
-				animate(self)
-			end
+		self.vel = vmath.vector3(0, 0, 0)
+		if action_id == hash("fwd") then
+			self.vel.y = 1
 		end
+		if action_id == hash("right") then
+			self.vel.x = 1
+		end
+		if action_id == hash("down") then
+			self.vel.y = -1
+		end
+		if action_id == hash("left") then
+			self.vel.x = -1
+		end
+		msg.post("/world", "rq_move", {vel = self.vel, coll = self.coll, id = go.get_id()})
 	end
 	if action_id == hash("btn_1") then
 	end

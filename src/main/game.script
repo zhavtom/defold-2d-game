@@ -4,7 +4,8 @@ function init(self)
 	self.blocksize = 16
 	self.walk = 0
 	self.vel = vmath.vector3()
-	self.pid = nil
+	self.coll = vmath.vector4()
+	self.id = nil
 	self.stop = true
 	self.hold = false
 	msg.post(".", "acquire_input_focus")
@@ -18,7 +19,7 @@ function zround(n)
 end
 
 function move(self)
-	go.set_position(go.get_position(self.pid)+self.vel, self.pid)
+	
 end
 
 function update(self)
@@ -51,9 +52,9 @@ function on_message(self, message_id, message, sender)
 		if not self.hold then
 			self.walk = self.blocksize
 			self.vel = message.vel
-			self.pid = sender
+			self.coll = message.coll
+			self.id = message.id
 			self.hold = true
-			local wk = self.walk ~= 0
 		end
 	end
 end

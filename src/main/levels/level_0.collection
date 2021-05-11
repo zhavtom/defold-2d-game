@@ -32,9 +32,30 @@ instances {
     z: 1.0
   }
 }
+instances {
+  id: "snake"
+  prototype: "/main/objects/entity/snake.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "map"
+  children: "entity"
   children: "warpgate"
   data: "components {\n"
   "  id: \"map_0\"\n"
@@ -97,6 +118,27 @@ embedded_instances {
     x: -8.0
     y: -8.0
     z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "entity"
+  children: "snake"
+  data: ""
+  position {
+    x: 152.0
+    y: 152.0
+    z: 1.0
   }
   rotation {
     x: 0.0
