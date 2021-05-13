@@ -1,25 +1,18 @@
+go.property("spawn_align", 0)
+
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	msg.post("cam#camera", "acquire_camera_focus")
-	self.vel = vmath.vector3()
-	self.align = 0
-	self.speed = 1
-	self.xmove = vmath.vector3(self.speed, 0, 0)
-	self.ymove = vmath.vector3(0, self.speed, 0)
-	self.coll = vmath.vector4()
-	self.wk = 0
+	self.align = go.get("#", "spawn_align")
 	self.walk = false
-	self.stpd = true
-	self.hold = false
-	self.foot = true
-	self.id = go.get_id()
-	timer.delay(5, false, function(self, handle, time_elapsed)
-		msg.post("textbox", "text_write", {text = "しかし　いなかった！\nWelcome to Defold."})
-	end)
+	self.foot = false
+	self.coll = vmath.vector4()
+	self.vel = vmath.vector3()
 end
 
-function animate(self, walk)
-	if walk then
+function animate(self)
+	print(self.align)
+	if self.walk then
 		if self.foot then
 			sprite.play_flipbook("#sprite", hash("walk_L" .. self.align))
 			self.foot = false
@@ -31,6 +24,7 @@ function animate(self, walk)
 		sprite.play_flipbook("#sprite", hash("idle_" .. self.align))
 	end
 end
+
 --[[
 local function move(self)
 	local keyed = vmath.length(self.vel) > 0
@@ -103,56 +97,74 @@ local function move(self)
 end
 ]]
 function update(self, dt)
+	--[[
 	if self.pos ~= go.get_position() then
 		self.pos = go.get_position()
 	end
 	self.stpd = self.wk == 0
+	]]
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("contact_point_response") then
 		if message.group == hash("blocker") then
-			if message.normal.y > 0.7 then
+			if message.normal.y < -0.5 then
 				self.coll.x = 1
 			end
-			if message.normal.x > 0.7 then
+			if message.normal.x < -0.5 then
 				self.coll.y = 1
 			end
-			if message.normal.y < -0.7 then
+			if message.normal.y > 0.5 then
 				self.coll.z = 1
 			end
-			if message.normal.y < -0.7 then
+			if message.normal.x > 0.5 then
 				self.coll.w = 1
 			end
 		end
 	end
+	
 	if message_id == hash("rq_main") then
 		msg.post(message.dest, message.msgid, message.table)
 	end
+
+	if message_id == hash("move") then
+		self.walk = true
+		animate(self)
+	end
+
+	if message_id == hash("mvstop") then
+		self.coll = vmath.vector4()
+		self.walk = false
+		animate(self)
+	end
+	--[[
 	if message_id == hash("anim") then
 		animate(self, message.walk, message.vel)
 	end
 	if message_id == hash("set_coll") then
 		self.coll = message.vec
 	end
+	]]
 end
 
 function on_input(self, action_id, action)
 	if action_id == hash("fwd") or action_id == hash("right") or action_id == hash("back") or action_id == hash("left") then
-		self.vel = vmath.vector3(0, 0, 0)
-		if action_id == hash("fwd") then
-			self.vel.y = 1
+		--[[
+		]]
+		if action_id == hash("fwd") and self.coll.x == 0 and not self.walk then
+			self.align = 0
+			msg.post(".", "move", {speed = 1, vel = vmath.vector3(0, 1, 0)})
+		elseif action_id == hash("right") and self.coll.y == 0 and not self.walk then
+			self.align = 1
+			msg.post(".", "move", {speed = 1, vel = vmath.vector3(1, 0, 0)})
+		elseif action_id == hash("back") and self.coll.z == 0 and not self.walk then
+			self.align = 2
+			msg.post(".", "move", {speed = 1, vel = vmath.vector3(0, -1, 0)})
+		elseif action_id == hash("left") and self.coll.w == 0 and not self.walk then
+			self.align = 3
+			msg.post(".", "move", {speed = 1, vel = vmath.vector3(-1, 0, 0)})
 		end
-		if action_id == hash("right") then
-			self.vel.x = 1
-		end
-		if action_id == hash("down") then
-			self.vel.y = -1
-		end
-		if action_id == hash("left") then
-			self.vel.x = -1
-		end
-		msg.post("/world", "rq_move", {vel = self.vel, coll = self.coll, id = go.get_id()})
+		--msg.post("/world", "rq_move", {vel = self.vel, coll = self.coll, id = go.get_id()})
 	end
 	if action_id == hash("btn_1") then
 	end

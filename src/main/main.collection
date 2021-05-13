@@ -146,6 +146,26 @@ embedded_instances {
   "    z: 0.0\n"
   "    w: 1.0\n"
   "  }\n"
+  "  properties {\n"
+  "    id: \"spawn_align\"\n"
+  "    value: \"2.0\"\n"
+  "    type: PROPERTY_TYPE_NUMBER\n"
+  "  }\n"
+  "}\n"
+  "components {\n"
+  "  id: \"movectrl\"\n"
+  "  component: \"/main/scripts/movectrl.script\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
   "}\n"
   "embedded_components {\n"
   "  id: \"collision\"\n"
@@ -174,7 +194,7 @@ embedded_instances {
   "    index: 0\\n"
   "    count: 1\\n"
   "  }\\n"
-  "  data: 8.0\\n"
+  "  data: 8.5\\n"
   "}\\n"
   "linear_damping: 0.0\\n"
   "angular_damping: 0.0\\n"
@@ -259,8 +279,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 0.0
-    y: 0.0
+    x: 80.0
+    y: 64.0
     z: 0.0
   }
   rotation {
@@ -342,6 +362,7 @@ embedded_instances {
   "gain: 0.5\\n"
   "pan: 0.0\\n"
   "speed: 1.0\\n"
+  "loopcount: 0\\n"
   "\"\n"
   "  position {\n"
   "    x: 0.0\n"

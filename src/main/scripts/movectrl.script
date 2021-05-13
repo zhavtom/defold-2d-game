@@ -1,0 +1,36 @@
+function init(self)
+	self.id = go.get_id()
+	self.count = 0
+	self.speed = 1
+	self.walk = false
+	self.vel = vmath.vector3()
+	--self.align = nil
+end
+
+function update(self, dt)
+	if self.count > 0 then
+		if self.count % self.speed == 0 then
+			go.set_position(go.get_position() + self.vel)
+		end
+		self.count = self.count - 1
+	elseif self.walk then
+		self.walk = false
+		msg.post(".", "mvstop")
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("move") then
+		if message.abs then
+			-- abs pos
+		else
+			if self.count == 0 then
+				--step = message.step
+				self.speed = message.speed
+				self.vel = message.vel
+				self.count = self.speed * 16
+				self.walk = true
+			end
+		end
+	end
+end
